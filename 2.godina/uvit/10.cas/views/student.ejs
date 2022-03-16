@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Student</title>
+</head>
+
+<body>
+
+    <h1>Uspesna prijava</h1>
+
+    <% if(student != null) {%>
+        <p>Dobro dosli, <%=student.name%></p>
+    <% } else {%>
+        <p>Ne postoji takav student (<%=username%>)</p>
+    <% } %>
+    
+    <form method = "POST" action = "student/delete/<%=username%>">
+
+        <button type = "submit">Obrisi podatke</button>
+
+    </form>
+
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+\babel@toc {serbianc}{}
+\beamer@sectionintoc {1}{Увод}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Како све остављамо личне податке на интернету}{4}{0}{1}
+\beamer@sectionintoc {2}{Врсте личних података}{6}{0}{2}
+\beamer@subsectionintoc {2}{1}{Врсте личних података на интернету}{8}{0}{2}
+\beamer@subsectionintoc {2}{2}{Шерентинг}{9}{0}{2}
+\beamer@sectionintoc {3}{Наша приватност на интернету}{10}{0}{3}
+\beamer@subsectionintoc {3}{1}{Како заштити личне податке и приватност на интернету}{11}{0}{3}
+\beamer@sectionintoc {4}{Како заштити податке детета на интернету}{12}{0}{4}
+\beamer@subsectionintoc {4}{1}{Подаци деце на интернету}{13}{0}{4}
+\beamer@sectionintoc {5}{Закључак}{14}{0}{5}

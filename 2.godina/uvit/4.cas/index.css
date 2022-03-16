@@ -1,0 +1,22 @@
+ul li {
+  list-style: square;
+}
+
+ol {
+  border: 1px solid black;
+}
+ol li {
+  list-style-type: lower-greek;
+  background-color: antiquewhite;
+  list-style-position: outside;
+}
+
+table {
+  border: 2px solid black;
+  border-collapse: collapse;
+}
+
+td,
+th {
+  border: 2px solid black;
+}

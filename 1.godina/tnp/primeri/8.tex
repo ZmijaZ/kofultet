@@ -1,0 +1,38 @@
+\documentclass{article}
+
+\begin{document}
+
+% postavlja se jedinica duzine
+\setlength{\unitlength}{1mm}
+
+% kreira se crtez konacnog automata za prepoznavanje stringova
+% oblika [a]?[bcd]+[e]*
+\begin{picture}(100,80)
+
+% stanja
+\put(20,40){\circle{3}} \put(15,43){start} % pocetno stanje
+\put(40,60){\oval(12,8)} \put(39,59){$1$} % stanje 1
+\put(40,20){\oval(12,8)} \put(39,19){$2$} % stanje 2
+\put(60,20){\oval(12,8)} \put(59,19){$3$} % stanje 3
+\put(80,40){\circle*{3}} \put(80,43){stop} % zavrsno stanje
+
+
+% prelaz iz pocetnog stanja u stanje 1
+\put(21,41){\vector(1,1){15}} \put(30,47){a}
+% prelaz iz pocetnog stanja u stanje 2
+\put(21,39){\vector(1,-1){15}} \put(30,31){bcd}
+% prelaz iz stanja 1 u stanje 2
+\put(40,56){\vector(0,-1){32}} \put(41,39){bcd}
+% prelaz iz stanja 2 natrag u stanje 2
+\put(40,16){\oval(6,4)[b]} \put(38,14){\vector(1,0){4}}
+\put(37,10){bcd}
+% prelaz iz stanja 2 u stanje 3
+\put(46,20){\vector(1,0){8}} \put(49,21){e}
+% prelaz iz stanja 2 u zavrsno stanje
+\put(46,22){\vector(2,1){32}}
+% prelaz iz stanja 3 natrag u stanje 3
+\put(60,16){\oval(6,4)[b]} \put(58,14){\vector(1,0){4}} \put(59,10){e}
+% prelaz iz stanja 3 u zavrsno stanje
+\put(63,23){\vector(1,1){15}}
+\end{picture}
+\end{document}

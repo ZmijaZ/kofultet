@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\newtheorem{teorema}{Teorema}[section]
+\begin{document}
+\setcounter{equation}{500}
+\section{Prvo poglavlje}
+\begin{teorema}[Prva teorema]
+Ovo je tekst prve teoreme.
+\end{teorema}
+\begin{teorema}[Druga teorema]
+\label{thm:druga_teorema}
+Ovo je tekst druge teoreme.
+\end{teorema}
+Ovo je primer formule zapisane u okviru teksta:
+$\int_{\pi}^{\infty} f(a,x)dx = 0 \;\;\; \mbox{za $a>0$}$,
+ovo je primer izdvojene formule:
+$$\int_{\pi}^{\infty} f(a,x)dx = 0 \;\;\; \mbox{za $a>0$}$$
+a ovo je primer označene formule:
+\begin{equation}
+\int_{\pi}^{\infty} f(a,x)dx = 0 \;\;\; \mbox{za $a>0$}
+\end{equation}
+\section{Drugo poglavlje}
+\begin{teorema}[Treća teorema]
+Ovo je tekst treće teoreme: važi obrat teoreme
+\ref{thm:druga_teorema}.
+\end{teorema}
+\end{document}

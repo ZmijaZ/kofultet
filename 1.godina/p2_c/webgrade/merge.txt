@@ -1,0 +1,39 @@
+void merge(int l, int d, KOOD*a, KOOD*pom){
+    if(l>=d)
+        return;
+
+    int s = (l+d)/2;
+    
+    merge(l, s, a, pom);
+    merge(s+1, d, a, pom);
+    
+    int i = l;
+    int j = s+1;
+    int k = 0;
+    
+    while(i<=s && j<=d){
+        if(a[i].x < a[j].x){
+            pom[k].x = a[i].x;
+            i++;
+            k++;
+        }
+        else{
+            pom[k].x = a[i].x;
+            i++;
+            k++;
+        }
+    }
+    while(i<=s){
+        pom[k].x = a[i].x;
+        i++;
+        k++;
+    }
+    while(j<=d){
+        pom[k].x = a[j].x;
+        j++;
+        k++;
+    }
+    for(i=l, k = 0; i<=d; i++, k++){
+        a[i].x = pom[k].x;
+    }
+}

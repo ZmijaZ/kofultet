@@ -1,0 +1,39 @@
+#div {
+  height: 300px;
+  width: 500px;
+  background-image: url("https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg");
+  /* background-size: 100px 200px; */
+  background-repeat: no-repeat;
+  border: 5px solid powderblue;
+  background-position: right top;
+  background-size: cover;
+}
+
+#div p {
+  color: wheat;
+  font-size: 30pt;
+  text-align: center;
+}
+
+#boje1 {
+  width: 500px;
+  height: 400px;
+  border: 10px solid black;
+  border-top: dotted;
+  border-radius: 20px;
+  background-image: linear-gradient(
+    to left,
+    powderblue,
+    cornflowerblue,
+    deeppink
+  );
+}
+
+#boje2 {
+  width: 500px;
+  height: 400px;
+  border: 10px solid black;
+  border-top: dotted;
+  border-radius: 20px;
+  background-image: radial-gradient(powderblue, cornflowerblue, deeppink);
+}

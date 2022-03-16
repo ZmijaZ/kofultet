@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Vezbe 3</title>
+        <meta charset="UTF-8">
+        <link rel = "stylesheet" type = "text/css" link = "index.css">
+    </head>
+
+
+    <body>
+
+
+        <form method = "POST">
+            <fieldset>
+                <legend>Student</legend>
+
+                <label for = "ime">Ime: </label>
+                <input type = "text" name = "ime" id = "ime">
+                <br>
+                <label for = "email">Email: </label>
+                <input type="email" name = "email" id = "email">
+                <br>
+           
+                <label>Matematika: </label>
+                <input type = "radio" name = "smer" value = "mat">
+                <br>
+                <label>Informatika: </label>
+                <input type="radio" name="smer" checked = "true" value = "inf">
+                <br>
+                <label>Astronomija i astrofizika: </label>
+                <input type="radio" name="smer" value = "ast">
+                <br>
+            </fieldset>
+            <label>Zgrade MATF-a</label>
+            <br>
+            <label>Trg</label>
+            <input type="checkbox" name = "trg" value = "1">
+            <br>
+            <label>Jagiceva</label>
+            <input type="checkbox" name = "jag" value = "2">
+            <br>
+            <label>N sale</label>
+            <input type="checkbox" name = "ns" value = "3">
+            <br>
+
+            <textarea rows = "5" cols = "40" name = "text"></textarea>
+            <br>
+
+            <label>Smer 2: </label> 
+            <br>
+            <select name = "smer-2" multiple = "true">
+
+                <option value = "mat">Matematika</option>
+                <option value = "inf">Informatika</option>
+                <option value = "ast">Matematika</option>
+
+            </select>
+            <br> <br>
+
+            <label>Odaberi omiljeni pregledac</label> <br>
+            <input list = "pregledaci">
+            <datalist id = "pregledaci">
+                <option value = "Internet Explorer" ></option>
+                <option value="Firefox"></option>
+                <option value="Chrome"></option>
+                <option value="Opera"></option>
+                <option value="Safari"></option>
+            </datalist>
+
+            <input type = "submit" value="Posalji podatke">
+
+        </form>
+
+    </body>
+
+</html>

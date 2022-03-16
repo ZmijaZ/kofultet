@@ -1,0 +1,26 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\begin{document}
+% jednostavna tabela
+\begin{tabular}{|l|r|r|}
+\hline
+Prezime i ime & Broj indeksa & Broj poena \\
+\hline
+Perić Pera & 517/99 & 100 \\
+Lazić Laza & 521/99 & 85 \\
+Mikić Mika & 509/99 & 75 \\
+Jović Jova & 515/99 & 70 \\
+\hline
+\end{tabular}
+
+\vspace*{1cm}
+% komplikovana tabela
+\begin{tabular}{|c|c||c|c|} \hline
+\multicolumn{4}{|c|}{OSNOVNA PODELA} \\ \hline
+\multicolumn{2}{|l||}{DEO 1} & \multicolumn{2}{|r|}{DEO 2} \\
+\hline deo 1.1 & deo 1.2 & deo 1.3 & deo 1.4 \\ \hline
+deo 2.1 & \multicolumn{2}{c|}{zajednički deo} & deo 2.4 \\
+\hline deo 3.1 & deo 3.2 & & \\ \cline{1-2}
+deo 4.1 & deo 4.2 & deo 4.3 & deo 4.4 \\ \hline
+\end{tabular}
+\end{document}
