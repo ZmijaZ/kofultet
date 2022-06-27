@@ -1,0 +1,61 @@
+1. Nadji rec unutar stabla				|
+2. Najduzi zajednicki prefiks				|
+3. Leksikografski raspored reci (oba)			|=\	 
+4. Rec sa najvise ponavljanja				|=/	O(n);
+5. K reci sa najvise ponavljanja			|
+6. Autocomplete						|
+
+7. Napravi stablo					|
+8. Suma segmenta unutar stabla				|=\
+9. Azuriraj stablo					|==|> O(n) da se napravi stablo, O(logn) sve operacije
+10. Broj slozenih unutar stabla				|=/
+11. Max proizvod unutar stabla				|
+	
+12. DFS obilazak iz proizvoljnog cvora			|
+13. BFS obilazak iz proizvoljnog cvora			|
+14. DFS obilazak od u do v				|
+15. Broj klastera u nepovezanom grafu			|
+16. Sve putanje od u do v				|
+17. DFS najkraca putanja od u do v (po broju grana)	|=\
+18. DFS da li postoji ciklus (usmeren graf)		|==|> O(|E| + |V|)
+19. DFS da li postoji ciklus (neusmeren graf)		|=/
+20. DFS broj cvorova na i-tom nivou			|
+21. DFS da li je bipartitan 				|
+22. BFS da li postoji ciklus (neusmeren graf)		|
+23. BFS da li je bipartitan				|
+24. BFS broj cvorova na i-tom nivou			|
+ 
+25. BFS najkraca putanja od u do v (po broju grana)
+26. Kanov algoritam					|=\
+27. Sve artikulacione tacke (tarjan)			|==|> O(|E| + |V|)
+28. Svi mostovi (tarjan)				|=/
+
+29. Dijkstra								|=\ 
+30. Dijkstra (sa i bez cvorova)						|==|> O( (|E| + |V|)log(V) )
+31. Prim								|=/ 
+32. Flojd-Varsal (za odredjivanje postojanja negativnog ciklusa)	|=> O(|V|(|E| + |V|)log(V) )
+
+33. Tardzan (za odredjivanje jake povezanosti)				|=\
+34. Kosaradzu (za odredjivanje jake povezanosti)			|=/ O(|V| + |E|)
+35. Ojler (neusmereni)
+36. Ojler (usmereni)
+37. Fleri
+38. Hirholcer								|=> O(|E|)
+39. Ulancavanje reci
+
+40. Modularne operacije							|=\
+41. Skracivanje razlomaka						|==\
+42. Prosireni euklidov algoritam					|===|> O(log(n))
+43. Diofantova jna							|===|>
+44. Modularni inverz							|==/
+45. Kineska teorema o ostacima						|=/
+
+46. Z-algoritam								|=\
+47. KMP algoritam							|=|> O(n)
+48. Manacerov algoritam							|=/
+
+49. Kolinearnost tacaka							|=> O((n^2)log(n))
+50. Graham								|=> O(nlog(n))
+51. Pripadnost prostom poligonu						|=> O(log(n))
+52. Segmetni - svi segmetni unutar nekog drugog segmenta
+53. Segmenti - unija svih

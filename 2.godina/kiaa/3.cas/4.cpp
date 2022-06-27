@@ -1,70 +1,69 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
 #include <cmath>
+#include <algorithm>
 
 using namespace std;
 
-void napravi_stablo(vector<int>&stablo, int x, int y, int i, int index){
-    
-    if(x == y){
-        stablo[i] += 1;
+void napravi_stablo(vector<int>&niz, vector<int>&stablo, int l, int d, int k){
+
+    if(l == d){
+        stablo[k] = niz[l];
         return;
     }
-    
-    int s = (x+y)/2;
-    
-    if(index <= s)
-        napravi_stablo(stablo, x, s, 2*i, index);
-    else
-        napravi_stablo(stablo, s+1, y, 2*i+1, index);
-    
-    stablo[i] = stablo[2*i] + stablo[2*i+1];
+
+    int s = l + (d-l)/2;
+
+    napravi_stablo(niz, stablo, l, s, 2*k);
+    napravi_stablo(niz, stablo, s+1, d, 2*k+1);
+
+    stablo[k] = stablo[2*k] + stablo[2*k+1];
 }
 
-int inverzije(vector<int>&stablo, int x, int y, int a, int b, int i){
-    
-    if(x > b || y < a)
-        return 0;
-    
-    if(x >= a && y <=b)
-        return stablo[i];
-    
-    int s = (x+y)/2;
-    
-    return inverzije(stablo, x, s, a, b, 2*i) + inverzije(stablo, s+1, y, a, b, 2*i+1);
+void stablo_neparnih(vector<int>&niz, vector<int>&stablo, int l, int d, int k){
+
+    if(l == d){
+        stablo[k] = niz[l] % 2;
+        return;
+    }
+
+    int s = l + (d-l)/2;
+
+    stablo_neparnih(niz, stablo, l, s, 2*k);
+    stablo_neparnih(niz, stablo, s+1, d, 2*k+1);
+
+    stablo[k] = stablo[2*k] + stablo[2*k+1];
+
 }
 
 int main(){
-    
+
+    cout << "Koliko brojeva se nalazi u nizu? ";
     int n;
     cin >> n;
+
     vector<int>niz(n);
-    
-    int maks = 0;
-    for(int i = 0; i<n; i++){
+    cout << "Koji su to brojevi? ";
+    for(int i = 0; i<n; i++)
         cin >> niz[i];
-        maks = max(maks, niz[i]);
-    }
-    
-    int visina = ceil(log2(maks));
+
+    int visina = ceil(log2(n));
     int velicina = 2*pow(2, visina);
-    
+
     vector<int>stablo(velicina);
-    
-    fill(stablo.begin(), stablo.end(), 0);
-    
-    int resenje = 0;
-    
-    for(int i = 0; i<n; i++){
-        
-        resenje += inverzije(stablo, 1, maks, niz[i] + 1, maks, 1);
-        
-        napravi_stablo(stablo, 1, maks, 1, niz[i]);
-        
-    }
-    
-    cout << resenje << '\n';
-    
+    napravi_stablo(niz, stablo, 0, n-1, 1);
+
+    cout << "Stablo ima oblik: \n";
+    for(int x : stablo)
+        cout << x << " ";
+    cout << '\n';
+
+    stablo_neparnih(niz, stablo, 0, n-1, 1);
+    cout << "Stablo neparnih ima oblik: \n";
+    for(int x : stablo)
+        cout << x << " ";
+
+    cout << '\n';
+
     return 0;
 }

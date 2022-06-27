@@ -1,13 +1,12 @@
 #include <iostream>
-#include <unordered_map>
+#include <map>
 
 using namespace std;
 
 struct Cvor{
 
     string rec;
-    int brojac;
-    unordered_map<char, Cvor*>mapa;
+    map<char, Cvor*, greater<int> >mapa;
 
 };
 
@@ -15,7 +14,6 @@ Cvor* napravi_cvor(){
 
     Cvor* novi_cvor = new Cvor;
     novi_cvor->rec = "";
-    novi_cvor->brojac = 0;
 
     return novi_cvor;
 }
@@ -24,7 +22,6 @@ void dodaj_rec(Cvor*koren, string rec, int i){
 
     if(i == (int)rec.size()){
         koren->rec = rec;
-        koren->brojac++;
         return;
     }
 
@@ -37,14 +34,11 @@ void dodaj_rec(Cvor*koren, string rec, int i){
 
 }
 
-void najcesca_rec(Cvor*koren, string &rec, int &max){
+void leksikografski(Cvor *koren){
 
     if(koren->rec != ""){
-        if(koren->brojac > max){
-            max = koren->brojac;
-            rec = koren->rec;
-        }
-
+        cout << koren->rec << "\n";
+        return;
     }
 
     auto begin = koren->mapa.begin();
@@ -52,21 +46,10 @@ void najcesca_rec(Cvor*koren, string &rec, int &max){
 
     while(begin != end){
 
-        najcesca_rec(begin->second, rec, max);
+        leksikografski(begin->second);
         begin++;
+
     }
-
-}
-
-void obrisi_stablo(Cvor *koren){
-
-    if(koren == nullptr)
-        return;
-
-    for(auto &p : koren->mapa)
-        obrisi_stablo(p.second);
-
-    delete koren;
 
 }
 
@@ -85,14 +68,10 @@ int main(){
         dodaj_rec(koren, rec, 0);
     }
 
-    string rec = "";
-    int broj = 0;
-    najcesca_rec(koren, rec, broj);
+    cout << "-----Raspored reci leksikografski-----\n";
 
-    cout << "Najcesca rec je: " << rec << ", " << broj << " puta";
+    leksikografski(koren);
 
-    obrisi_stablo(koren);
-    cout << '\n';
 
     return 0;
 }

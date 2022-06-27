@@ -4,67 +4,75 @@
 using namespace std;
 
 struct Graf{
-    
+
     vector<vector<int>>povezanost;
-    
     vector<bool>poseceno;
-    
     int V;
-    
+
 };
 
 void inicijalizuj_graf(Graf &g, int V){
-    
-    g.V = V;
-    
+
     g.povezanost.resize(V);
     g.poseceno.resize(V, false);
-    
+    g.V = V;
+
 }
 
-void dodaj_cvor(Graf&g, int u, int v){
-    
+void dodaj_granu(Graf &g, int u, int v){
+
     g.povezanost[u].push_back(v);
-    
+
 }
 
-void DFS_obilazak(Graf&g, int v){
-    
-    g.poseceno[v] = true;
-    cout << v << " ";
-    
-    auto begin = g.povezanost[v].begin();
-    auto end = g.povezanost[v].end();
-    
+void DFS(Graf &g, int u){
+
+    g.poseceno[u] = true;
+    cout << u << " ";
+
+    auto begin = g.povezanost[u].begin();
+    auto end = g.povezanost[u].end();
+
     while(begin != end){
-        
+
         if(!g.poseceno[*begin])
-            DFS_obilazak(g, *begin);
-        
+            DFS(g, *begin);
+
         begin++;
     }
-    
+
 }
 
 int main(){
-    
+
+    cout << "Koliko cvorova je u grafu? ";
     int V;
     cin >> V;
+
     Graf g;
     inicijalizuj_graf(g, V);
-    
-    int upiti;
-    cin >> upiti;
-    for(int i = 0; i<upiti; i++){
-        int od, u;
-        cin >> od >> u;
-        dodaj_cvor(g, od, u);
+
+    cout << "Koliko grana je u grafu? ";
+    int n;
+    cin >> n;
+
+    cout << "Koje su to grane? ";
+    for(int i = 0; i<n; i++){
+
+        int u, v;
+        cin >> u >> v;
+        dodaj_granu(g, u, v);
+
     }
-    
-    int tmp;
-    cin >> tmp;
-    
-    DFS_obilazak(g, tmp);
-    
+
+    cout << "Iz koje grane pocinje pretraga? ";
+    int u;
+    cin >> u;
+
+    cout << "DFS pretraga je: \n";
+    DFS(g, u);
+
+    cout << '\n';
+
     return 0;
 }

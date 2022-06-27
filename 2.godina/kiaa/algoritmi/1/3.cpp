@@ -1,30 +1,33 @@
 #include <iostream>
-#include <unordered_map>
+#include <map>
+
+// PREFIKSNA DRVETAA
+
+//algoritam leksikografski sortira recnik. SLOZENOST je O(n) + O(nlog(n))
 
 using namespace std;
 
 struct Cvor{
 
     string rec;
-    int brojac;
-    unordered_map<char, Cvor*>mapa;
+    map<char, Cvor*>mapa; //map<char, Cvor*, greater<int>>mapa; ako zelimo obrnuto sortirano
 
 };
 
 Cvor* napravi_cvor(){
 
-    Cvor* novi_cvor = new Cvor;
+    Cvor* novi_cvor = new Cvor();
+
     novi_cvor->rec = "";
-    novi_cvor->brojac = 0;
 
     return novi_cvor;
+
 }
 
 void dodaj_rec(Cvor*koren, string rec, int i){
 
     if(i == (int)rec.size()){
         koren->rec = rec;
-        koren->brojac++;
         return;
     }
 
@@ -37,14 +40,11 @@ void dodaj_rec(Cvor*koren, string rec, int i){
 
 }
 
-void najcesca_rec(Cvor*koren, string &rec, int &max){
+void leksikografski(Cvor*koren){
 
     if(koren->rec != ""){
-        if(koren->brojac > max){
-            max = koren->brojac;
-            rec = koren->rec;
-        }
-
+        cout << koren->rec << "\n";
+        return;
     }
 
     auto begin = koren->mapa.begin();
@@ -52,13 +52,12 @@ void najcesca_rec(Cvor*koren, string &rec, int &max){
 
     while(begin != end){
 
-        najcesca_rec(begin->second, rec, max);
+        leksikografski(begin->second);
         begin++;
     }
-
 }
 
-void obrisi_stablo(Cvor *koren){
+void obrisi_stablo(Cvor*koren){
 
     if(koren == nullptr)
         return;
@@ -67,32 +66,29 @@ void obrisi_stablo(Cvor *koren){
         obrisi_stablo(p.second);
 
     delete koren;
-
 }
 
 int main(){
 
-    cout << "Koliko reci se unosi u recnik? ";
+    Cvor*koren = napravi_cvor();
+
+    cout << "Koliko reci se nalazi u recniku? ";
     int n;
     cin >> n;
 
-    Cvor*koren = napravi_cvor();
+    cout << "Koje su to reci?\n";
+    for(int i = 0; i < n; i++){
 
-    cout << "Koje su to reci? ";
-    for(int i = 0; i<n; i++){
         string rec;
         cin >> rec;
         dodaj_rec(koren, rec, 0);
+
     }
 
-    string rec = "";
-    int broj = 0;
-    najcesca_rec(koren, rec, broj);
-
-    cout << "Najcesca rec je: " << rec << ", " << broj << " puta";
+    cout << "\nReci sortirane:\n";
+    leksikografski(koren);
 
     obrisi_stablo(koren);
-    cout << '\n';
 
     return 0;
 }

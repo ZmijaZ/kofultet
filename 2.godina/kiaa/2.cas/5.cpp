@@ -1,5 +1,7 @@
 #include <iostream>
 #include <unordered_map>
+#include <vector>
+#include <queue>
 
 using namespace std;
 
@@ -8,6 +10,16 @@ struct Cvor{
     string rec;
     int brojac;
     unordered_map<char, Cvor*>mapa;
+
+};
+
+struct komparator{
+
+    bool operator()(Cvor *c1, Cvor *c2){
+
+        return c1->brojac < c2->brojac;
+
+    }
 
 };
 
@@ -37,14 +49,10 @@ void dodaj_rec(Cvor*koren, string rec, int i){
 
 }
 
-void najcesca_rec(Cvor*koren, string &rec, int &max){
+void najcesce_reci(Cvor*koren, priority_queue<Cvor*, vector<Cvor*>, komparator>hip){
 
     if(koren->rec != ""){
-        if(koren->brojac > max){
-            max = koren->brojac;
-            rec = koren->rec;
-        }
-
+        hip.push(koren);
     }
 
     auto begin = koren->mapa.begin();
@@ -52,7 +60,7 @@ void najcesca_rec(Cvor*koren, string &rec, int &max){
 
     while(begin != end){
 
-        najcesca_rec(begin->second, rec, max);
+        najcesce_reci(begin->second, hip);
         begin++;
     }
 
@@ -85,11 +93,23 @@ int main(){
         dodaj_rec(koren, rec, 0);
     }
 
-    string rec = "";
-    int broj = 0;
-    najcesca_rec(koren, rec, broj);
+    cout << "Koliko reci se trazi? ";
+    int k;
+    cin >> k;
 
-    cout << "Najcesca rec je: " << rec << ", " << broj << " puta";
+    priority_queue<Cvor*, vector<Cvor*>, komparator>hip;
+    najcesce_reci(koren, hip);
+
+    Cvor*tmp;
+
+    cout << "-----Najcesce reci su-----\n";
+    while(k && hip.size()){
+        tmp = hip.top();
+        hip.pop();
+        cout << tmp->rec << ", " << tmp->brojac << "\n";
+
+        k--;
+    }
 
     obrisi_stablo(koren);
     cout << '\n';

@@ -1,27 +1,33 @@
 #include <iostream>
 #include <unordered_map>
 
+// PREFIKSNA DRVETAA
+
+//algoritam nalazi najduzi zajednicki prefiks svih reci u recniku. SLOZENOST je O(n)
+
 using namespace std;
 
 struct Cvor{
 
-    bool jeste_list;
+    bool jeste_rec;
     unordered_map<char, Cvor*>mapa;
 
 };
 
 Cvor* napravi_cvor(){
 
-    Cvor* novi_cvor = new Cvor;
-    novi_cvor->jeste_list = false;
+    Cvor* novi_cvor = new Cvor();
+
+    novi_cvor->jeste_rec = false;
 
     return novi_cvor;
+
 }
 
 void dodaj_rec(Cvor*koren, string rec, int i){
 
     if(i == (int)rec.size()){
-        koren->jeste_list = true;
+        koren->jeste_rec = true;
         return;
     }
 
@@ -34,20 +40,20 @@ void dodaj_rec(Cvor*koren, string rec, int i){
 
 }
 
-void prefiks(Cvor *koren, string &rec){
+void najduzi_prefiks(Cvor*koren, string &rec){
 
-    while(koren->mapa.size() == 1 && !koren->jeste_list && koren){
+    while(koren->mapa.size() == 1 && koren->mapa.size() && koren->jeste_rec == false){
 
         auto element = koren->mapa.begin();
 
-        rec+=element->first;
+        rec += element->first;
 
         koren = element->second;
     }
 
 }
 
-void obrisi_stablo(Cvor *koren){
+void obrisi_stablo(Cvor*koren){
 
     if(koren == nullptr)
         return;
@@ -56,31 +62,32 @@ void obrisi_stablo(Cvor *koren){
         obrisi_stablo(p.second);
 
     delete koren;
-
 }
 
 int main(){
 
-    cout << "Koliko reci se unosi u recnik? ";
+    Cvor*koren = napravi_cvor();
+
+    cout << "Koliko reci se nalazi u recniku? ";
     int n;
     cin >> n;
 
-    Cvor*koren = napravi_cvor();
+    cout << "Koje su to reci?\n";
+    for(int i = 0; i < n; i++){
 
-    cout << "Koje su to reci? ";
-    for(int i = 0; i<n; i++){
         string rec;
         cin >> rec;
         dodaj_rec(koren, rec, 0);
+
     }
 
-    string rec = "";
-    prefiks(koren, rec);
+    string prefiks = "";
+    najduzi_prefiks(koren, prefiks);
 
-    cout << "Najduzi prefiks je: " << rec;
+    cout << "\nNajduzi prefiks svih reci je: " << prefiks;
 
-    obrisi_stablo(koren);
     cout << '\n';
+    obrisi_stablo(koren);
 
     return 0;
 }

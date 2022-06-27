@@ -10,7 +10,7 @@ struct Graf{
     int V;
 
     //
-    bool postoji_put;
+    vector<int>boje;
 
 };
 
@@ -21,7 +21,8 @@ void inicijalizuj_graf(Graf &g, int V){
     g.V = V;
 
     //
-    g.postoji_put = false;
+    g.boje.resize(V, -1);
+
 }
 
 void dodaj_granu(Graf &g, int u, int v){
@@ -30,29 +31,29 @@ void dodaj_granu(Graf &g, int u, int v){
 
 }
 
-void DFS(Graf &g, int u, int v, vector<int>&rez){
-
-    if(u == v){
-        rez.push_back(v);
-        g.postoji_put = true;
-
-        return;
-    }
+bool DFS(Graf &g, int u, int boja){
 
     g.poseceno[u] = true;
-    rez.push_back(u);
+
+    g.boje[u] = boja;
 
     auto begin = g.povezanost[u].begin();
     auto end = g.povezanost[u].end();
 
     while(begin != end){
 
-        if(!g.poseceno[*begin] && !g.postoji_put)
-            DFS(g, *begin, v, rez);
+        if(g.boje[*begin] == g.boje[u])
+            return false;
+
+        if(!g.poseceno[*begin])
+            if(!DFS(g, *begin, !boja))
+                return false;
+
 
         begin++;
     }
 
+    return true;
 }
 
 int main(){
@@ -77,23 +78,10 @@ int main(){
 
     }
 
-    cout << "Koja putanja se trazi? ";
-    int u, v;
-    cin >> u >> v;
-
-    vector<int>rez;
-
-    DFS(g, u, v, rez);
-    if(g.postoji_put){
-        cout << "DFS putanja je: \n";
-        int i;
-        int n = rez.size();
-
-        for(i = 0; i<n-1; i++)
-            cout << rez[i] << " -> ";
-        cout << rez[i];
-    } else
-        cout << "Ne postoji put!";
+    if(DFS(g, 0, 0))
+        cout << "Jeste bipartitan :)";
+    else
+        cout << "Nije bipartitan!";
 
     cout << '\n';
 

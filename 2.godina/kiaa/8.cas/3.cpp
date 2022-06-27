@@ -9,9 +9,9 @@ struct Graf{
     vector<bool>poseceno;
     int V;
 
-    int brojac;
-
+    vector<int>stepen;
 };
+
 
 void inicijalizuj_graf(Graf &g, int V){
 
@@ -19,13 +19,17 @@ void inicijalizuj_graf(Graf &g, int V){
     g.poseceno.resize(V, false);
     g.V = V;
 
-    g.brojac = 0;
+    g.stepen.resize(V, 0);
 }
 
 void dodaj_granu(Graf &g, int u, int v){
 
     g.povezanost[u].push_back(v);
     g.povezanost[v].push_back(u);
+
+
+    g.stepen[u]++;
+    g.stepen[v]++;
 
 }
 
@@ -45,15 +49,49 @@ void DFS(Graf &g, int u){
     }
 }
 
-int broj_komponenti(Graf &g){
+bool jeste_povezan(Graf &g){
+
+    int pocetak;
 
     for(int i = 0; i<g.V; i++)
-        if(!g.poseceno[i]){
-            DFS(g, i);
-            g.brojac++;
-        }
+        if(g.povezanost[i].size() > 0)
+            pocetak = i;
 
-    return g.brojac;
+    DFS(g, pocetak);
+
+    for(int i = 0; i<g.V; i++)
+        if(g.poseceno[i] == false && g.stepen[i] > 0)
+            return false;
+
+    return true;
+
+}
+
+int broj_neparnih(Graf &g){
+
+    int brojac = 0;
+
+    for(int i = 0; i<g.V; i++)
+        if(g.stepen[i] % 2 == 1)
+            brojac++;
+
+    return brojac;
+}
+
+int ojler(Graf &g){
+
+    int brojac = broj_neparnih(g);
+
+    if(brojac > 2)
+        return 0;
+
+    if(!jeste_povezan(g))
+        return 0;
+
+    if(brojac == 0)
+        return 2;
+    else
+        return 1;
 
 }
 
@@ -79,7 +117,12 @@ int main(){
 
     }
 
-    cout << "Broj komponenti povezanosti je: " << broj_komponenti(g);
+    if(ojler(g) == 0)
+        cout << "Nije ojlerov!";
+    else if(ojler(g) == 1)
+        cout << "Sadrzi ojlerov put";
+    else
+        cout << "Sadrzi ojlerov ciklus :)";
 
     cout << '\n';
 

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <stack>
 
 using namespace std;
 
@@ -9,7 +10,8 @@ struct Graf{
     vector<bool>poseceno;
     int V;
 
-    int brojac;
+    stack<int>stek;
+    vector<int>ojlerov_put;
 
 };
 
@@ -19,43 +21,48 @@ void inicijalizuj_graf(Graf &g, int V){
     g.poseceno.resize(V, false);
     g.V = V;
 
-    g.brojac = 0;
 }
 
 void dodaj_granu(Graf &g, int u, int v){
 
     g.povezanost[u].push_back(v);
-    g.povezanost[v].push_back(u);
 
 }
 
-void DFS(Graf &g, int u){
+void hirholcer(Graf &g){
 
-    g.poseceno[u] = true;
+    int u = 0;
+    g.stek.push(u);
 
-    auto begin = g.povezanost[u].begin();
-    auto end = g.povezanost[u].end();
+    int tmp;
 
-    while(begin != end){
+    while(!g.stek.empty()){
 
-        if(!g.poseceno[*begin])
-            DFS(g, *begin);
+        if(g.povezanost[u].size()){
 
-        begin++;
-    }
-}
+            g.stek.push(u);
+            tmp = g.povezanost[u].back();
+            g.povezanost[u].pop_back();
 
-int broj_komponenti(Graf &g){
-
-    for(int i = 0; i<g.V; i++)
-        if(!g.poseceno[i]){
-            DFS(g, i);
-            g.brojac++;
+            u = tmp;
         }
+        else{
 
-    return g.brojac;
+            g.ojlerov_put.push_back(u);
+            u = g.stek.top();
+            g.stek.pop();
+
+        }
+    }
+
+    int i;
+    for(i = g.ojlerov_put.size() - 1; i >= 1; i--)
+        cout << g.ojlerov_put[i] << " -> ";
+
+    cout << g.ojlerov_put[i];
 
 }
+
 
 int main(){
 
@@ -79,7 +86,10 @@ int main(){
 
     }
 
-    cout << "Broj komponenti povezanosti je: " << broj_komponenti(g);
+
+    cout << "Ojlerov put je: \n";
+
+    hirholcer(g);
 
     cout << '\n';
 

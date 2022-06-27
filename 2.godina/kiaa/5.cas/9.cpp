@@ -10,7 +10,7 @@ struct Graf{
     int V;
 
     //
-    bool postoji_put;
+    int brojac;
 
 };
 
@@ -21,7 +21,8 @@ void inicijalizuj_graf(Graf &g, int V){
     g.V = V;
 
     //
-    g.postoji_put = false;
+    g.brojac = 0;
+
 }
 
 void dodaj_granu(Graf &g, int u, int v){
@@ -30,25 +31,20 @@ void dodaj_granu(Graf &g, int u, int v){
 
 }
 
-void DFS(Graf &g, int u, int v, vector<int>&rez){
-
-    if(u == v){
-        rez.push_back(v);
-        g.postoji_put = true;
-
-        return;
-    }
+void DFS(Graf &g, int u, int trenutni_nivo, int trazeni_nivo){
 
     g.poseceno[u] = true;
-    rez.push_back(u);
+
+    if(trenutni_nivo == trazeni_nivo)
+        g.brojac++;
 
     auto begin = g.povezanost[u].begin();
     auto end = g.povezanost[u].end();
 
     while(begin != end){
 
-        if(!g.poseceno[*begin] && !g.postoji_put)
-            DFS(g, *begin, v, rez);
+        if(!g.poseceno[*begin])
+            DFS(g, *begin, trenutni_nivo+1, trazeni_nivo);
 
         begin++;
     }
@@ -77,23 +73,13 @@ int main(){
 
     }
 
-    cout << "Koja putanja se trazi? ";
-    int u, v;
-    cin >> u >> v;
+    cout << "Koji nivo se trazi? ";
+    int nivo;
+    cin >> nivo;
 
-    vector<int>rez;
+    DFS(g, 0, 0, nivo);
 
-    DFS(g, u, v, rez);
-    if(g.postoji_put){
-        cout << "DFS putanja je: \n";
-        int i;
-        int n = rez.size();
-
-        for(i = 0; i<n-1; i++)
-            cout << rez[i] << " -> ";
-        cout << rez[i];
-    } else
-        cout << "Ne postoji put!";
+    cout << "Ukupno ima " << g.brojac << " grana na datom nivou";
 
     cout << '\n';
 

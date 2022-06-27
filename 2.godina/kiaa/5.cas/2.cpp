@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <queue>
 
 using namespace std;
 
@@ -9,8 +10,6 @@ struct Graf{
     vector<bool>poseceno;
     int V;
 
-    int brojac;
-
 };
 
 void inicijalizuj_graf(Graf &g, int V){
@@ -19,41 +18,43 @@ void inicijalizuj_graf(Graf &g, int V){
     g.poseceno.resize(V, false);
     g.V = V;
 
-    g.brojac = 0;
 }
 
 void dodaj_granu(Graf &g, int u, int v){
 
     g.povezanost[u].push_back(v);
-    g.povezanost[v].push_back(u);
 
 }
 
-void DFS(Graf &g, int u){
+void BFS(Graf &g, int u){
+
+    queue<int>red;
+    red.push(u);
 
     g.poseceno[u] = true;
 
-    auto begin = g.povezanost[u].begin();
-    auto end = g.povezanost[u].end();
+    int tmp;
 
-    while(begin != end){
+    while(!red.empty()){
 
-        if(!g.poseceno[*begin])
-            DFS(g, *begin);
+        tmp = red.front();
+        red.pop();
 
-        begin++;
-    }
-}
+        cout << tmp << " ";
 
-int broj_komponenti(Graf &g){
+        auto begin = g.povezanost[tmp].begin();
+        auto end = g.povezanost[tmp].end();
 
-    for(int i = 0; i<g.V; i++)
-        if(!g.poseceno[i]){
-            DFS(g, i);
-            g.brojac++;
+        while(begin != end){
+
+            if(!g.poseceno[*begin]){
+                red.push(*begin);
+                g.poseceno[*begin] = true;
+            }
+            begin++;
         }
 
-    return g.brojac;
+    }
 
 }
 
@@ -79,7 +80,12 @@ int main(){
 
     }
 
-    cout << "Broj komponenti povezanosti je: " << broj_komponenti(g);
+    cout << "Iz koje grane pocinje pretraga? ";
+    int u;
+    cin >> u;
+
+    cout << "BFS pretraga je: \n";
+    BFS(g, u);
 
     cout << '\n';
 

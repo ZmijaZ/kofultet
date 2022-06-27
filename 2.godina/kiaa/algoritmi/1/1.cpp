@@ -1,27 +1,33 @@
 #include <iostream>
 #include <unordered_map>
 
+// PREFIKSNA DRVETAA
+
+//algoritam pravi recnik i proverava postojanje date reci unutar istog. SLOZENOST je O(n)
+
 using namespace std;
 
 struct Cvor{
 
-    bool jeste_list;
+    bool jeste_rec;
     unordered_map<char, Cvor*>mapa;
 
 };
 
 Cvor* napravi_cvor(){
 
-    Cvor* novi_cvor = new Cvor;
-    novi_cvor->jeste_list = false;
+    Cvor* novi_cvor = new Cvor();
+
+    novi_cvor->jeste_rec = false;
 
     return novi_cvor;
+
 }
 
 void dodaj_rec(Cvor*koren, string rec, int i){
 
     if(i == (int)rec.size()){
-        koren->jeste_list = true;
+        koren->jeste_rec = true;
         return;
     }
 
@@ -34,20 +40,21 @@ void dodaj_rec(Cvor*koren, string rec, int i){
 
 }
 
-bool nadji_rec(Cvor*koren, string rec, int i){
+bool pronadji_rec(Cvor*koren, string rec, int i){
 
     if(i == (int)rec.size())
-        return koren->jeste_list;
+        return koren->jeste_rec;
 
     auto it = koren->mapa.find(rec[i]);
 
     if(it == koren->mapa.end())
         return false;
 
-    return nadji_rec(koren->mapa[rec[i]], rec, i+1);
+    return pronadji_rec(koren->mapa[rec[i]], rec, i+1);
+
 }
 
-void obrisi_stablo(Cvor *koren){
+void obrisi_stablo(Cvor*koren){
 
     if(koren == nullptr)
         return;
@@ -56,35 +63,37 @@ void obrisi_stablo(Cvor *koren){
         obrisi_stablo(p.second);
 
     delete koren;
-
 }
 
 int main(){
 
-    cout << "Koliko reci se unosi u recnik? ";
+    Cvor*koren = napravi_cvor();
+
+    cout << "Koliko reci se nalazi u recniku? ";
     int n;
     cin >> n;
 
-    Cvor*koren = napravi_cvor();
+    cout << "Koje su to reci?\n";
+    for(int i = 0; i < n; i++){
 
-    cout << "Koje su to reci? ";
-    for(int i = 0; i<n; i++){
         string rec;
         cin >> rec;
         dodaj_rec(koren, rec, 0);
+
     }
 
     cout << "Koja rec se trazi? ";
     string rec;
     cin >> rec;
 
-    if(nadji_rec(koren, rec, 0))
-        cout << "Rec postoji u recniku :)";
+    if(pronadji_rec(koren, rec, 0))
+        cout << "\nRec postoji u recniku :)";
     else
-        cout << "Rec ne postoji u recniku!";
+        cout << "\nRec ne postoji u recniku!";
 
-    obrisi_stablo(koren);
+
     cout << '\n';
+    obrisi_stablo(koren);
 
     return 0;
 }
